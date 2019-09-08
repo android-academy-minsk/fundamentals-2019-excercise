@@ -1,5 +1,14 @@
 <resources>
-    <string name="app_name">First Application</string>
-    <string name="title">Android Academy Fundamentals Course 2019</string>
-    <string name="open_google">Open Google</string>
+    <string name="app_name">Academy Minsk Movies</string>
+    <string name="endgame_title">Avengers: Endgame</string>
+    <string name="endgame_release_date">April 22, 2019</string>
+    <string name="endgame_overview">After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos\' actions and restore order to the universe once and for all, no matter what consequences may be in store.</string>
+    <string name="endgame_trailer">https://youtu.be/hA6hldpSTF8</string>
+
+    <string name="released_title">Released:</string>
+    <string name="button_movie_trailer">Movie Trailer</string>
+    <string name="overview_title">Overview:</string>
+
+    <string name="content_description_movie_backdrop">Movie Backdrop</string>
+    <string name="content_description_movie_poster">Movie Poster</string>
 </resources>

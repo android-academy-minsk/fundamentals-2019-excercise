@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="textSizeLarge">36sp</dimen>
+    <dimen name="text_title_size">19sp</dimen>
+    <dimen name="back_image_size">200dp</dimen>
 </resources>
