@@ -2,4 +2,11 @@
 <resources>
     <dimen name="text_title_size">19sp</dimen>
     <dimen name="back_image_size">200dp</dimen>
+
+    <!-- Movies List -->
+    <dimen name="list_item_movie_height">108dp</dimen>
+    <dimen name="list_item_padding">4dp</dimen>
+    <dimen name="list_item_poster_width">90dp</dimen>
+    <dimen name="list_item_title_margin">8dp</dimen>
+    <dimen name="list_item_overview_top_margin">8dp</dimen>
 </resources>
