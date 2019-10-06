@@ -1,118 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DetailsActivity">
+    tools:context=".DetailsFragment">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".DetailsActivity">
+        tools:context=".DetailsFragment">
 
         <ImageView
             android:id="@+id/details_iv_back"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:contentDescription="@string/content_description_movie_backdrop"
+            android:scaleType="centerCrop"
             app:layout_constraintDimensionRatio="16:9"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:scaleType="centerCrop"
-            android:contentDescription="@string/content_description_movie_backdrop"
-            tools:src="@tools:sample/backgrounds/scenic"/>
+            tools:src="@tools:sample/backgrounds/scenic" />
 
         <ImageView
             android:id="@+id/details_iv_image"
             android:layout_width="116dp"
             android:layout_height="175dp"
-            app:layout_constraintTop_toBottomOf="@id/details_iv_back"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
             android:layout_marginTop="16dp"
-            android:scaleType="centerCrop"
             android:contentDescription="@string/content_description_movie_poster"
-            tools:src="@tools:sample/avatars"/>
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_iv_back"
+            tools:src="@tools:sample/avatars" />
 
         <TextView
             android:id="@+id/details_tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="@id/details_iv_image"
-            app:layout_constraintStart_toEndOf="@id/details_iv_image"
             android:layout_marginStart="8dp"
             android:gravity="start"
             android:textColor="@color/purple"
             android:textSize="@dimen/text_title_size"
             android:textStyle="bold"
-            tools:text="@tools:sample/cities"/>
+            app:layout_constraintStart_toEndOf="@id/details_iv_image"
+            app:layout_constraintTop_toTopOf="@id/details_iv_image"
+            tools:text="@tools:sample/cities" />
 
         <TextView
             android:id="@+id/details_tv_released"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/details_tv_title"
-            app:layout_constraintStart_toStartOf="@id/details_tv_title"
             android:layout_marginTop="4dp"
             android:gravity="start"
             android:text="@string/released_title"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/details_tv_title"
+            app:layout_constraintTop_toBottomOf="@id/details_tv_title" />
 
         <TextView
             android:id="@+id/details_tv_released_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintBaseline_toBaselineOf="@id/details_tv_released"
-            app:layout_constraintStart_toEndOf="@id/details_tv_released"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:gravity="start"
             android:textColor="@color/black"
             android:textSize="16sp"
+            app:layout_constraintBaseline_toBaselineOf="@id/details_tv_released"
+            app:layout_constraintStart_toEndOf="@id/details_tv_released"
             tools:text="@tools:sample/date/mmddyy" />
 
         <Button
             android:id="@+id/details_btn_trailer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/details_tv_released"
-            app:layout_constraintStart_toStartOf="@id/details_tv_released"
             android:layout_marginStart="4dp"
             android:layout_marginTop="16dp"
-            android:text="@string/button_movie_trailer" />
+            android:text="@string/button_movie_trailer"
+            app:layout_constraintStart_toStartOf="@id/details_tv_released"
+            app:layout_constraintTop_toBottomOf="@id/details_tv_released" />
 
         <TextView
             android:id="@+id/details_tv_overview"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/details_iv_image"
-            app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:gravity="start"
             android:text="@string/overview_title"
             android:textColor="@color/black"
             android:textSize="16sp"
-            android:textStyle="bold"/>
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_iv_image" />
 
         <TextView
             android:id="@+id/details_tv_overview_text"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/details_tv_overview"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
             android:gravity="start"
             android:textColor="@color/grey"
             android:textSize="14sp"
-            tools:text="@tools:sample/lorem/random"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/details_tv_overview"
+            tools:text="@tools:sample/lorem/random" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

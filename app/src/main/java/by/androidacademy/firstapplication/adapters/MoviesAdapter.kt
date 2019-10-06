@@ -1,4 +1,4 @@
-package by.androidacademy.firstapplication
+package by.androidacademy.firstapplication.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.data.Movie
 
 class MoviesAdapter(
@@ -18,7 +19,13 @@ class MoviesAdapter(
     private val inflater: LayoutInflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        return ViewHolder(inflater.inflate(R.layout.item_movie, parent, false), clickListener)
+        return ViewHolder(
+            inflater.inflate(
+                R.layout.item_movie,
+                parent,
+                false
+            ), clickListener
+        )
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
