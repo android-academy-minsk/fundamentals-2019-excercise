@@ -58,10 +58,14 @@ class CoroutineActivity : AppCompatActivity(), TaskEventContract.Lifecycle, Task
     }
 
     override fun onPreExecute() {
-        coroutineFragment?.updateFragmentText("Job created")
+        Toast.makeText(this, getString(R.string.msg_preexecute), Toast.LENGTH_SHORT).show()
+
+        coroutineFragment?.updateFragmentText(getString(R.string.task_created))
     }
 
     override fun onPostExecute() {
+        Toast.makeText(this, getString(R.string.msg_postexecute), Toast.LENGTH_SHORT).show()
+
         coroutineFragment?.updateFragmentText(getString(R.string.done))
     }
 

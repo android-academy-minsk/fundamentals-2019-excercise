@@ -12,6 +12,7 @@ import by.androidacademy.firstapplication.adapters.MoviesAdapter
 import by.androidacademy.firstapplication.data.DataStorage
 import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.threads.CoroutineActivity
+import by.androidacademy.firstapplication.threads.ThreadsActivity
 
 class MoviesActivity : AppCompatActivity() {
 
@@ -42,13 +43,13 @@ class MoviesActivity : AppCompatActivity() {
         when (item.itemId) {
             R.id.action_open_coroutine -> {
                 // Open Async Task Activity
-                startActivity(Intent(this@MoviesActivity, CoroutineActivity::class.java))
+                startActivity(Intent(this, CoroutineActivity::class.java))
                 return true
             }
 
             R.id.action_open_thread_handler -> {
                 // Open Thread Handler Activity
-                //                startActivity(Intent(this@MoviesActivity, ThreadsActivity::class.java))
+                startActivity(Intent(this, ThreadsActivity::class.java))
                 return true
             }
 
