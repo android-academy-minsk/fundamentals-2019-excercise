@@ -11,7 +11,6 @@ class DetailsFragmentAdapter(
     private val arrayList: List<Movie>
 ) : FragmentStatePagerAdapter(fragmentManager) {
 
-
     override fun getItem(position: Int): Fragment? {
         val movie = when {
             arrayList.isNotEmpty() && position <= count - 1 -> arrayList[position]

@@ -7,4 +7,19 @@
 
     <string name="content_description_movie_backdrop">Movie Backdrop</string>
     <string name="content_description_movie_poster">Movie Poster</string>
+    <string name="menu_coroutine_activity_title">Open Coroutines Activity</string>
+    <string name="menu_thread_handler_activity_title">Open Thread Handler Activity</string>
+    <string name="coroutine_create">Create</string>
+    <string name="coroutine_start">Start</string>
+    <string name="coroutine_stop">Stop</string>
+    <string name="activity_coroutine_title">Coroutines activity</string>
+
+    <string name="msg_oncreate">Coroutine created</string>
+    <string name="msg_onstart">Coroutine Started</string>
+    <string name="msg_oncancel">Coroutine cancelled</string>
+    <string name="msg_should_create_task">must click \"create\" task first</string>
+
+    <string name="msg_thread_oncreate">Thread Task created</string>
+    <string name="msg_thread_onstart">Thread Task Started</string>
+    <string name="msg_thread_oncancel">Thread Task cancelled</string>
 </resources>
