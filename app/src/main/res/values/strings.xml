@@ -12,7 +12,7 @@
     <string name="coroutine_create">Create</string>
     <string name="coroutine_start">Start</string>
     <string name="coroutine_stop">Stop</string>
-    <string name="activity_coroutine_title">Coroutines activity</string>
+    <string name="fragment_coroutine_title">Coroutines activity</string>
 
     <string name="msg_oncreate">Coroutine created</string>
     <string name="msg_onstart">Coroutine Started</string>
@@ -22,4 +22,7 @@
     <string name="msg_thread_oncreate">Thread Task created</string>
     <string name="msg_thread_onstart">Thread Task Started</string>
     <string name="msg_thread_oncancel">Thread Task cancelled</string>
+
+    <string name="done">Done!</string>
+
 </resources>

@@ -19,9 +19,9 @@
         android:layout_height="wrap_content"
         android:text="@string/coroutine_create"
         android:textAllCaps="true"
-        app:layout_constraintEnd_toStartOf="@id/button_start"
+        app:layout_constraintEnd_toStartOf="@+id/button_start"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/guideline" />
+        app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <Button
         android:id="@+id/button_start"
@@ -29,25 +29,24 @@
         android:layout_height="wrap_content"
         android:text="@string/coroutine_start"
         android:textAllCaps="true"
-        app:layout_constraintEnd_toStartOf="@id/button_stop"
+        app:layout_constraintEnd_toStartOf="@+id/button_cancel"
         app:layout_constraintStart_toEndOf="@+id/button_create"
         app:layout_constraintTop_toBottomOf="@id/guideline" />
 
     <Button
-        android:id="@+id/button_stop"
+        android:id="@+id/button_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/coroutine_stop"
         android:textAllCaps="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/button_start"
-        app:layout_constraintTop_toBottomOf="@id/guideline" />
+        app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
     <TextView
-        android:id="@+id/text_counter"
+        android:id="@+id/text_value"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/activity_coroutine_title"
         android:textSize="48sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

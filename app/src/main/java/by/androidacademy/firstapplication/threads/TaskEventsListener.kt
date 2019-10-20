@@ -2,12 +2,12 @@ package by.androidacademy.firstapplication.threads
 
 interface TaskEventsListener {
 
-    fun createAsyncTask()
-    fun startAsyncTask()
-    fun cancelAsyncTask()
+    fun createTask()
+    fun startTask()
+    fun cancelTask()
 
-    fun onPreExecute()
-    fun onPostExecute()
-    fun onProgressUpdate(integer: Int)
-    fun onCancel()
+//    fun onPreExecute()
+//    fun onPostExecute()
+//    fun onProgressUpdate(integer: Int)
+//    fun onCancel()
 }
