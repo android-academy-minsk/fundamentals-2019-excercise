@@ -29,7 +29,7 @@ class CounterFragment : Fragment() {
         }
     }
 
-    private var taskEventsListener: TaskEventsListener? = null
+    private var listener: TaskEventContract.Operationable? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,17 +42,17 @@ class CounterFragment : Fragment() {
     override fun onAttach(context: Context) {
         super.onAttach(context)
 
-        if (activity != null && activity is TaskEventsListener) {
-            taskEventsListener = activity as TaskEventsListener
+        if (activity != null && activity is TaskEventContract.Operationable) {
+            listener = activity as TaskEventContract.Operationable
         }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        button_create.setOnClickListener { taskEventsListener?.createTask() }
-        button_start.setOnClickListener { taskEventsListener?.startTask() }
-        button_cancel.setOnClickListener { taskEventsListener?.cancelTask() }
+        button_create.setOnClickListener { listener?.createTask() }
+        button_start.setOnClickListener { listener?.startTask() }
+        button_cancel.setOnClickListener { listener?.cancelTask() }
 
         //UNPACK OUR DATA FROM OUR BUNDLE
         val fragmentText = this.arguments?.getString(FRAGMENT_TYPE)
@@ -62,7 +62,7 @@ class CounterFragment : Fragment() {
     override fun onDetach() {
         super.onDetach()
 
-        taskEventsListener = null
+        listener = null
     }
 
     fun updateFragmentText(text: String) {

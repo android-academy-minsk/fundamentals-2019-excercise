@@ -1,13 +1,17 @@
 package by.androidacademy.firstapplication.threads
 
-interface TaskEventsListener {
+interface TaskEventContract{
 
-    fun createTask()
-    fun startTask()
-    fun cancelTask()
+    interface Operationable{
+        fun createTask()
+        fun startTask()
+        fun cancelTask()
+    }
 
-//    fun onPreExecute()
-//    fun onPostExecute()
-//    fun onProgressUpdate(integer: Int)
-//    fun onCancel()
+    interface Lifecycle{
+        fun onPreExecute()
+        fun onPostExecute()
+        fun onProgressUpdate(progress: Int)
+        fun onCancel()
+    }
 }
