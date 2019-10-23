@@ -1,75 +1,52 @@
 package by.androidacademy.firstapplication.threads
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import by.androidacademy.firstapplication.R
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 
-class CoroutineActivity : AppCompatActivity(), TaskEventContract.Lifecycle, TaskEventContract.Operationable {
+class CoroutineActivity : AppCompatActivity(),
+    TaskEventContract.Operationable {
 
     private var coroutineFragment: CounterFragment? = null
-    private var coroutineTask: CoroutineTask? = null
+    private lateinit var viewModel: CoroutinesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         if (savedInstanceState == null) {
-            val fragment = CounterFragment.newInstance(
-                getString(R.string.fragment_coroutine_title)
-            ).also { coroutineFragment = it }
+            val fragment = CounterFragment.newInstance().also { coroutineFragment = it }
 
             supportFragmentManager.beginTransaction()
-                .replace(android.R.id.content, fragment)
+                .replace(android.R.id.content, fragment, FRAGMENT_TAG)
                 .commit()
+        } else {
+            coroutineFragment =
+                supportFragmentManager.findFragmentByTag(FRAGMENT_TAG) as CounterFragment
         }
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-        coroutineTask?.cancel()
+        viewModel = ViewModelProviders
+            .of(this, CoroutinesViewModelFactory(this))
+            .get(CoroutinesViewModel::class.java)
+        viewModel.text.observe(
+            this,
+            Observer { text -> coroutineFragment?.updateFragmentText(text) }
+        )
     }
 
     override fun createTask() {
-        Toast.makeText(this, getString(R.string.msg_oncreate), Toast.LENGTH_SHORT).show()
-
-        coroutineTask = CoroutineTask(this)
-            .apply { createTask() }
+        viewModel.onCreateTask()
     }
 
     override fun startTask() {
-        val started = coroutineTask?.start()
-
-        if (started == null || started == false) {
-            Toast.makeText(this, R.string.msg_should_create_task, Toast.LENGTH_SHORT).show()
-        }
+        viewModel.onStartTask()
     }
 
     override fun cancelTask() {
-        val canceled = coroutineTask?.cancel()
-
-        if (canceled == null) {
-            Toast.makeText(this, R.string.msg_should_create_task, Toast.LENGTH_SHORT).show()
-        }
+        viewModel.onCancelTask()
     }
 
-    override fun onProgressUpdate(progress: Int) {
-        coroutineFragment?.updateFragmentText(progress.toString())
-    }
-
-    override fun onPreExecute() {
-        Toast.makeText(this, getString(R.string.msg_preexecute), Toast.LENGTH_SHORT).show()
-
-        coroutineFragment?.updateFragmentText(getString(R.string.task_created))
-    }
-
-    override fun onPostExecute() {
-        Toast.makeText(this, getString(R.string.msg_postexecute), Toast.LENGTH_SHORT).show()
-
-        coroutineFragment?.updateFragmentText(getString(R.string.done))
-    }
-
-    override fun onCancel() {
-        Toast.makeText(this, getString(R.string.msg_oncancel), Toast.LENGTH_SHORT).show()
+    companion object {
+        private const val FRAGMENT_TAG = "fragment_tag"
     }
 }

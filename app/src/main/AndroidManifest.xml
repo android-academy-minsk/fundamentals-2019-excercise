@@ -20,7 +20,6 @@
         </activity>
 
         <activity android:name=".threads.CoroutineActivity" />
-        <activity android:name=".threads.ThreadsActivity" />
     </application>
 
 </manifest>

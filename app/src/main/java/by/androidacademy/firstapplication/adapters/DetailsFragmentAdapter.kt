@@ -9,14 +9,10 @@ import by.androidacademy.firstapplication.data.Movie
 class DetailsFragmentAdapter(
     fragmentManager: FragmentManager,
     private val arrayList: List<Movie>
-) : FragmentStatePagerAdapter(fragmentManager) {
+) : FragmentStatePagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
 
-    override fun getItem(position: Int): Fragment? {
-        val movie = when {
-            arrayList.isNotEmpty() && position <= count - 1 -> arrayList[position]
-            else -> null
-        }
-        return movie?.run { DetailsFragment.newInstance(this) }
+    override fun getItem(position: Int): Fragment {
+        return DetailsFragment.newInstance(arrayList[position])
     }
 
     override fun getCount(): Int {

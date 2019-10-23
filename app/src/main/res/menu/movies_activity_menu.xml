@@ -7,8 +7,4 @@
         android:title="@string/menu_coroutine_activity_title"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/action_open_thread_handler"
-        android:title="@string/menu_thread_handler_activity_title"
-        app:showAsAction="never"/>
 </menu>
