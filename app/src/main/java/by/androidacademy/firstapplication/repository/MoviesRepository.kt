@@ -12,4 +12,9 @@ class MoviesRepository(
         val popularMoviesDto = tmdbServiceApi.getPopularMovies()
         return tmdbServiceMapper.map(popularMoviesDto)
     }
+
+    suspend fun getMovieTrailerUrl(movie: Movie): String {
+        val movieVideosDto = tmdbServiceApi.getMovieVideos(movie.id)
+        return tmdbServiceMapper.mapTrailerUrl(movieVideosDto.results.first())
+    }
 }
