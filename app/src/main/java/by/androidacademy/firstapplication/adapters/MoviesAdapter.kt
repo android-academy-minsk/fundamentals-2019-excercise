@@ -12,8 +12,8 @@ import by.androidacademy.firstapplication.data.Movie
 
 class MoviesAdapter(
     context: Context,
-    private val movies: List<Movie>,
-    private val clickListener: (position: Int) -> Unit
+    var movies: List<Movie>,
+    private val clickListener: (movies: List<Movie>, position: Int) -> Unit
 ) : RecyclerView.Adapter<MoviesAdapter.ViewHolder>() {
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
@@ -24,8 +24,8 @@ class MoviesAdapter(
                 R.layout.item_movie,
                 parent,
                 false
-            ), clickListener
-        )
+            )
+        ) { position -> clickListener(movies, position) }
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
