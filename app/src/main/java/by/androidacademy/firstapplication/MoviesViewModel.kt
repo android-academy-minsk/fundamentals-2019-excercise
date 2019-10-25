@@ -13,16 +13,19 @@ class MoviesViewModel(
 ) : ViewModel() {
 
     private val moviesMutableLiveData: MutableLiveData<List<Movie>> = MutableLiveData()
+    private val isProgressBarVisibleMutableLiveData = MutableLiveData<Boolean>()
 
     val movies: LiveData<List<Movie>> = moviesMutableLiveData
+    val isProgressBarVisible: LiveData<Boolean> = isProgressBarVisibleMutableLiveData
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            val movies = moviesRepository.getPopularMovies()
+        viewModelScope.launch {
+            isProgressBarVisibleMutableLiveData.value = true
 
-            withContext(Dispatchers.Main) {
-                moviesMutableLiveData.value = movies
-            }
+            val movies = withContext(Dispatchers.IO) { moviesRepository.getPopularMovies() }
+
+            moviesMutableLiveData.value = movies
+            isProgressBarVisibleMutableLiveData.value = false
         }
     }
 }

@@ -4,8 +4,10 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
@@ -18,14 +20,25 @@ import by.androidacademy.firstapplication.threads.CoroutineActivity
 class MoviesActivity : AppCompatActivity() {
 
     private lateinit var adapter: MoviesAdapter
+    private lateinit var viewModel: MoviesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_movies)
 
+        initViewModel()
+
         initMoviesList()
+        initProgressBar()
 
         loadMovies()
+    }
+
+    private fun initViewModel() {
+        viewModel = ViewModelProviders.of(
+            this,
+            MoviesViewModelFactory(Dependencies.moviesRepository)
+        ).get(MoviesViewModel::class.java)
     }
 
     private fun initMoviesList() {
@@ -41,11 +54,14 @@ class MoviesActivity : AppCompatActivity() {
         list.addItemDecoration(decoration)
     }
 
+    private fun initProgressBar() {
+        val progressBar = findViewById<ProgressBar>(R.id.moviesProgressBar)
+        viewModel.isProgressBarVisible.observe(this, Observer {isVisible ->
+            progressBar.isVisible = isVisible
+        })
+    }
+
     private fun loadMovies() {
-        val viewModel = ViewModelProviders.of(
-            this,
-            MoviesViewModelFactory(Dependencies.moviesRepository)
-        ).get(MoviesViewModel::class.java)
         viewModel.movies.observe(this, Observer { movies ->
             adapter.movies = movies
             adapter.notifyDataSetChanged()
