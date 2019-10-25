@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import by.androidacademy.firstapplication.data.Movie
+import coil.api.load
 
 class DetailsFragment : Fragment() {
 
@@ -39,8 +40,8 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         arguments?.getParcelable<Movie>(ARGS_MOVIE)?.run {
 
-            view.findViewById<ImageView>(R.id.details_iv_back).setImageResource(backdropRes)
-            view.findViewById<ImageView>(R.id.details_iv_image).setImageResource(posterRes)
+            view.findViewById<ImageView>(R.id.details_iv_back).load(backdropUrl)
+            view.findViewById<ImageView>(R.id.details_iv_image).load(posterUrl)
             view.findViewById<TextView>(R.id.details_tv_title).text = title
             view.findViewById<TextView>(R.id.details_tv_released_date).text = releaseDate
             view.findViewById<TextView>(R.id.details_tv_overview_text).text = overview

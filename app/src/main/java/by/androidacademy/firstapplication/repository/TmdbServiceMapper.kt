@@ -14,11 +14,16 @@ class TmdbServiceMapper {
         // TODO:
         return Movie(
             title = movieDto.title,
-            posterRes = 0,
-            backdropRes = 0,
+            posterUrl = POSTER_BASE_URL + movieDto.posterPath,
+            backdropUrl = BACKDROP_BASE_URL + movieDto.backdropPath,
             overview = movieDto.overview,
             releaseDate = movieDto.releaseDate,
             trailerUrl = ""
         )
+    }
+
+    companion object {
+        private const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342"
+        private const val BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w780"
     }
 }

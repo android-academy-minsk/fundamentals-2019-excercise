@@ -9,6 +9,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.data.Movie
+import coil.api.load
 
 class MoviesAdapter(
     context: Context,
@@ -55,7 +56,7 @@ class MoviesAdapter(
         }
 
         fun bind(movie: Movie) {
-            poster.setImageResource(movie.posterRes)
+            poster.load(movie.posterUrl)
             title.text = movie.title
             overview.text = movie.overview
         }
