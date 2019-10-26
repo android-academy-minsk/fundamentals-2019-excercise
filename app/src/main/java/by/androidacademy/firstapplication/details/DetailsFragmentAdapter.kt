@@ -1,9 +1,8 @@
-package by.androidacademy.firstapplication.adapters
+package by.androidacademy.firstapplication.details
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import by.androidacademy.firstapplication.DetailsFragment
 import by.androidacademy.firstapplication.data.Movie
 
 class DetailsFragmentAdapter(

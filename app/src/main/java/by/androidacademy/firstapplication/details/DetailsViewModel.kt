@@ -1,7 +1,8 @@
-package by.androidacademy.firstapplication
+package by.androidacademy.firstapplication.details
 
 import android.content.Context
 import androidx.lifecycle.*
+import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.repository.MoviesRepository
 import by.androidacademy.firstapplication.utils.SingleEventLiveData
@@ -44,7 +45,11 @@ class DetailsViewModelFactory(
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         return if (modelClass == DetailsViewModel::class.java) {
             @Suppress("UNCHECKED_CAST")
-            DetailsViewModel(moviesRepository, StringsProvider(context), movie) as T
+            DetailsViewModel(
+                moviesRepository,
+                StringsProvider(context),
+                movie
+            ) as T
         } else {
             throw IllegalArgumentException()
         }

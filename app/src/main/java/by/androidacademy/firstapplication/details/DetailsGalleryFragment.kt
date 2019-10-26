@@ -1,4 +1,4 @@
-package by.androidacademy.firstapplication
+package by.androidacademy.firstapplication.details
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.viewpager.widget.ViewPager
-import by.androidacademy.firstapplication.adapters.DetailsFragmentAdapter
+import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.data.Movie
 
 class DetailsGalleryFragment : Fragment() {
@@ -42,7 +42,10 @@ class DetailsGalleryFragment : Fragment() {
         val position = arguments?.getInt(ARGS_MOVIE_POSITION) ?: 0
 
         view.findViewById<ViewPager>(R.id.vp_pager).run {
-            adapter = DetailsFragmentAdapter(childFragmentManager, movies)
+            adapter = DetailsFragmentAdapter(
+                childFragmentManager,
+                movies
+            )
             currentItem = position
         }
 

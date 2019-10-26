@@ -1,4 +1,4 @@
-package by.androidacademy.firstapplication.adapters
+package by.androidacademy.firstapplication.list
 
 import android.content.Context
 import android.view.LayoutInflater

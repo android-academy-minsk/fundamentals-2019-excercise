@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="text_title_size">19sp</dimen>
-    <dimen name="back_image_size">200dp</dimen>
 
     <!-- Movies List -->
     <dimen name="list_item_movie_height">108dp</dimen>

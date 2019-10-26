@@ -1,4 +1,4 @@
-package by.androidacademy.firstapplication
+package by.androidacademy.firstapplication.list
 
 import android.content.Intent
 import android.os.Bundle
@@ -13,7 +13,8 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
-import by.androidacademy.firstapplication.adapters.MoviesAdapter
+import by.androidacademy.firstapplication.details.DetailsGalleryFragment
+import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.dependency.Dependencies
 import by.androidacademy.firstapplication.threads.CoroutineActivity
@@ -39,12 +40,18 @@ class MoviesActivity : AppCompatActivity() {
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(
             this,
-            MoviesViewModelFactory(Dependencies.moviesRepository, this)
+            MoviesViewModelFactory(
+                Dependencies.moviesRepository,
+                this
+            )
         ).get(MoviesViewModel::class.java)
     }
 
     private fun initMoviesList() {
-        adapter = MoviesAdapter(this, emptyList()) { movies, position ->
+        adapter = MoviesAdapter(
+            this,
+            emptyList()
+        ) { movies, position ->
             showDetailsFragment(movies, position)
         }
 
@@ -52,7 +59,9 @@ class MoviesActivity : AppCompatActivity() {
         list.adapter = adapter
 
         val decoration = DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL)
-        decoration.setDrawable(ContextCompat.getDrawable(this, R.color.grey)!!)
+        decoration.setDrawable(ContextCompat.getDrawable(this,
+            R.color.grey
+        )!!)
         list.addItemDecoration(decoration)
     }
 
@@ -99,7 +108,11 @@ class MoviesActivity : AppCompatActivity() {
         movies: List<Movie>,
         position: Int
     ) {
-        val detailsFragment = DetailsGalleryFragment.newInstance(movies, position)
+        val detailsFragment =
+            DetailsGalleryFragment.newInstance(
+                movies,
+                position
+            )
         supportFragmentManager
             .beginTransaction()
             .addToBackStack(null)
