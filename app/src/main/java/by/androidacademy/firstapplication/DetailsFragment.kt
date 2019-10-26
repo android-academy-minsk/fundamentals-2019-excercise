@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -27,7 +28,7 @@ class DetailsFragment : Fragment() {
         movie = arguments?.getParcelable(ARGS_MOVIE)!!
         viewModel = ViewModelProviders.of(
             this,
-            DetailsViewModelFactory(Dependencies.moviesRepository, movie)
+            DetailsViewModelFactory(Dependencies.moviesRepository, context!!, movie)
         ).get(DetailsViewModel::class.java)
     }
 
@@ -45,6 +46,12 @@ class DetailsFragment : Fragment() {
         viewModel.openTrailerUrl.observe(
             this,
             Observer { trailerUrl -> openMovieTrailer(trailerUrl) }
+        )
+        viewModel.error.observe(
+            this,
+            Observer { errorMessage ->
+                Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
+            }
         )
 
         view.findViewById<ImageView>(R.id.details_iv_back).load(movie.backdropUrl)

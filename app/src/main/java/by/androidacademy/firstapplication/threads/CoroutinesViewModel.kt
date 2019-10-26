@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import by.androidacademy.firstapplication.R
+import by.androidacademy.firstapplication.utils.StringsProvider
 
 class CoroutinesViewModel(val stringsProvider: StringsProvider) : ViewModel() {
 

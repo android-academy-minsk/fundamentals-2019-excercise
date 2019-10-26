@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.isVisible
@@ -30,6 +31,7 @@ class MoviesActivity : AppCompatActivity() {
 
         initMoviesList()
         initProgressBar()
+        initErrorHandler()
 
         loadMovies()
     }
@@ -37,7 +39,7 @@ class MoviesActivity : AppCompatActivity() {
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(
             this,
-            MoviesViewModelFactory(Dependencies.moviesRepository)
+            MoviesViewModelFactory(Dependencies.moviesRepository, this)
         ).get(MoviesViewModel::class.java)
     }
 
@@ -56,8 +58,14 @@ class MoviesActivity : AppCompatActivity() {
 
     private fun initProgressBar() {
         val progressBar = findViewById<ProgressBar>(R.id.moviesProgressBar)
-        viewModel.isProgressBarVisible.observe(this, Observer {isVisible ->
+        viewModel.isProgressBarVisible.observe(this, Observer { isVisible ->
             progressBar.isVisible = isVisible
+        })
+    }
+
+    private fun initErrorHandler() {
+        viewModel.error.observe(this, Observer { errorMessage ->
+            Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT).show()
         })
     }
 

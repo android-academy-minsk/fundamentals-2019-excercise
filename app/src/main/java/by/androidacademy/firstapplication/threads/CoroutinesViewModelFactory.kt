@@ -3,6 +3,7 @@ package by.androidacademy.firstapplication.threads
 import android.content.Context
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import by.androidacademy.firstapplication.utils.StringsProvider
 import java.lang.IllegalArgumentException
 
 class CoroutinesViewModelFactory(

@@ -28,4 +28,7 @@
     <string name="done">Done!</string>
     <string name="task_created">Job created</string>
 
+    <string name="error_load_movies">Can\'t load movies: %1$s</string>
+    <string name="error_load_trailer">Can\'t load trailer: %1$s</string>
+
 </resources>
