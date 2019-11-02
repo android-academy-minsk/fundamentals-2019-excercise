@@ -8,17 +8,18 @@ import by.androidacademy.firstapplication.data.Movie
 class TmdbServiceMapper {
 
     fun map(popularMoviesDto: PopularMoviesDto): List<Movie> {
-        return popularMoviesDto.results.map { movieDto -> map(movieDto) }
+        return popularMoviesDto.results.mapIndexed { index, movieDto -> map(movieDto, index) }
     }
 
-    private fun map(movieDto: MovieDto): Movie {
+    private fun map(movieDto: MovieDto, popularity: Int): Movie {
         return Movie(
             id = movieDto.id,
             title = movieDto.title,
             posterUrl = POSTER_BASE_URL + movieDto.posterPath,
             backdropUrl = BACKDROP_BASE_URL + movieDto.backdropPath,
             overview = movieDto.overview,
-            releaseDate = movieDto.releaseDate
+            releaseDate = movieDto.releaseDate,
+            popularity = popularity
         )
     }
 

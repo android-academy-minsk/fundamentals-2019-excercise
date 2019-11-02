@@ -7,7 +7,9 @@ import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.repository.MoviesRepository
 import by.androidacademy.firstapplication.utils.SingleEventLiveData
 import by.androidacademy.firstapplication.utils.StringsProvider
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.lang.IllegalArgumentException
 
 class DetailsViewModel(
@@ -25,7 +27,17 @@ class DetailsViewModel(
     fun onTrailerButtonClicked() {
         viewModelScope.launch {
             try {
-                trailerUrlMutableLiveData.value = moviesRepository.getMovieTrailerUrl(movie)
+                val cachedUrl = withContext(Dispatchers.Default) {
+                    moviesRepository.getCachedMovieTrailerUrl(movie)
+                }
+
+                if (cachedUrl != null) {
+                    trailerUrlMutableLiveData.value = cachedUrl
+                } else {
+                    trailerUrlMutableLiveData.value = withContext(Dispatchers.IO) {
+                        moviesRepository.getMovieTrailerUrl(movie)
+                    }
+                }
             } catch (error: Throwable) {
                 errorMutableLiveData.value = stringsProvider.getString(
                     R.string.error_load_trailer,

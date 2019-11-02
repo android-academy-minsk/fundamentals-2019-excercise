@@ -30,6 +30,14 @@ class MoviesViewModel(
             try {
                 isProgressBarVisibleMutableLiveData.value = true
 
+                val cachedMovies = withContext(Dispatchers.Default) {
+                    moviesRepository.getCachedPopularMovies()
+                }
+                if (cachedMovies.isNotEmpty()) {
+                    moviesMutableLiveData.value = cachedMovies
+                    isProgressBarVisibleMutableLiveData.value = false
+                }
+
                 val movies = withContext(Dispatchers.IO) { moviesRepository.getPopularMovies() }
 
                 moviesMutableLiveData.value = movies
