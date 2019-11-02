@@ -1,6 +1,5 @@
 package by.androidacademy.firstapplication.api
 
-import by.androidacademy.firstapplication.Secrets
 import by.androidacademy.firstapplication.api.dto.MovieVideosDto
 import by.androidacademy.firstapplication.api.dto.PopularMoviesDto
 import retrofit2.http.GET
