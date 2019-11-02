@@ -9,7 +9,7 @@ import by.androidacademy.firstapplication.data.Movie
 @Dao
 interface MovieDao {
 
-    @Query("SELECT * FROM Movie ORDER BY popularity ASC")
+    @Query("SELECT * FROM Movie ORDER BY popularity DESC")
     fun getAll(): List<Movie>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
