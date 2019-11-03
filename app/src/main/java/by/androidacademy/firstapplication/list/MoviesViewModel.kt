@@ -51,6 +51,14 @@ class MoviesViewModel(
             }
         }
     }
+
+    fun deleteAllDataFromDatabase() {
+        viewModelScope.launch {
+            withContext(Dispatchers.Default) {
+                moviesRepository.deleteCachedData()
+            }
+        }
+    }
 }
 
 class MoviesViewModelFactory(

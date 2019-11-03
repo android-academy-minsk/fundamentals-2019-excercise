@@ -20,4 +20,6 @@
     <string name="error_load_movies">Can\'t load movies: %1$s</string>
     <string name="error_load_trailer">Can\'t load trailer: %1$s</string>
 
+    <string name="menu_delete_all_movies">Delete all movies</string>
+
 </resources>

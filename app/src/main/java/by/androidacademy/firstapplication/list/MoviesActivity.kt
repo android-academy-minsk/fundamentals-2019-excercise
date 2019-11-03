@@ -98,6 +98,11 @@ class MoviesActivity : AppCompatActivity() {
                 true
             }
 
+            R.id.action_delete_all_movies -> {
+                viewModel.deleteAllDataFromDatabase()
+                true
+            }
+
             else ->
                 // Invoke the superclass to handle it.
                 super.onOptionsItemSelected(item)

@@ -40,4 +40,9 @@ class MoviesRepository(
 
         return url
     }
+
+    fun deleteCachedData() {
+        movieDao.deleteAll()
+        videoDao.deleteAll()
+    }
 }
