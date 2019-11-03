@@ -14,7 +14,7 @@ import java.lang.IllegalArgumentException
 
 class MoviesViewModel(
     private val moviesRepository: MoviesRepository,
-    stringsProvider: StringsProvider
+    private val stringsProvider: StringsProvider
 ) : ViewModel() {
 
     private val moviesMutableLiveData = SingleEventLiveData<List<Movie>>()
@@ -25,22 +25,23 @@ class MoviesViewModel(
     val isProgressBarVisible: LiveData<Boolean> = isProgressBarVisibleMutableLiveData
     val error: LiveData<String> = errorMutableLiveData
 
-    init {
+    fun loadPopularMovies() {
         viewModelScope.launch {
             try {
                 isProgressBarVisibleMutableLiveData.value = true
 
-                val cachedMovies = withContext(Dispatchers.Default) {
-                    moviesRepository.getCachedPopularMovies()
-                }
-                if (cachedMovies.isNotEmpty()) {
-                    moviesMutableLiveData.value = cachedMovies
-                    isProgressBarVisibleMutableLiveData.value = false
-                }
+//                val cachedMovies = withContext(Dispatchers.Default) {
+//                    moviesRepository.getCachedPopularMovies()
+//                }
+//                if (cachedMovies.isNotEmpty()) {
+//                    moviesMutableLiveData.value = cachedMovies
+//                    isProgressBarVisibleMutableLiveData.value = false
+//                }
 
                 val movies = withContext(Dispatchers.IO) { moviesRepository.getPopularMovies() }
 
                 moviesMutableLiveData.value = movies
+                isProgressBarVisibleMutableLiveData.value = false
             } catch (error: Throwable) {
                 errorMutableLiveData.value = stringsProvider.getString(
                     R.string.error_load_movies,

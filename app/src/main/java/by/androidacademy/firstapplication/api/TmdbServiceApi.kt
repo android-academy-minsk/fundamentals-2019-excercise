@@ -10,13 +10,13 @@ interface TmdbServiceApi {
 
     @GET("movie/popular")
     suspend fun getPopularMovies(
-        @Query("api_key") apiKey: String = Secret.SERVER_API_KEY
+        @Query("api_key") apiKey: String = Secrets.SERVER_API_KEY
     ): PopularMoviesDto
 
 
     @GET("movie/{movieId}/videos")
     suspend fun getMovieVideos(
         @Path("movieId") movieId: Int,
-        @Query("api_key") apiKey: String = Secret.SERVER_API_KEY
+        @Query("api_key") apiKey: String = Secrets.SERVER_API_KEY
     ): MovieVideosDto
 }

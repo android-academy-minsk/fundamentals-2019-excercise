@@ -4,7 +4,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -12,20 +11,22 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.DividerItemDecoration
-import androidx.recyclerview.widget.RecyclerView
-import by.androidacademy.firstapplication.details.DetailsGalleryFragment
 import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.dependency.Dependencies
+import by.androidacademy.firstapplication.details.DetailsGalleryFragment
 import by.androidacademy.firstapplication.threads.CoroutineActivity
+import kotlinx.android.synthetic.main.activity_movies.moviesList
+import kotlinx.android.synthetic.main.activity_movies.moviesProgressBar
 
 class MoviesActivity : AppCompatActivity() {
 
-    private lateinit var adapter: MoviesAdapter
+    private lateinit var internalAdapter: MoviesAdapter
     private lateinit var viewModel: MoviesViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
         setContentView(R.layout.activity_movies)
 
         initViewModel()
@@ -48,27 +49,29 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun initMoviesList() {
-        adapter = MoviesAdapter(
+        internalAdapter = MoviesAdapter(
             this,
             emptyList()
-        ) { movies, position ->
-            showDetailsFragment(movies, position)
-        }
-
-        val list = findViewById<RecyclerView>(R.id.moviesList)
-        list.adapter = adapter
+        ) { movies, position -> showDetailsFragment(movies, position) }
 
         val decoration = DividerItemDecoration(this, DividerItemDecoration.HORIZONTAL)
-        decoration.setDrawable(ContextCompat.getDrawable(this,
-            R.color.grey
-        )!!)
-        list.addItemDecoration(decoration)
+        ContextCompat.getDrawable(this, R.color.grey)
+            ?.let { image -> decoration.setDrawable(image) }
+
+        moviesList.apply {
+            adapter = internalAdapter
+            addItemDecoration(decoration)
+        }
+
+        viewModel.movies.observe(this, Observer { movies ->
+            internalAdapter.movies = movies
+            internalAdapter.notifyDataSetChanged()
+        })
     }
 
     private fun initProgressBar() {
-        val progressBar = findViewById<ProgressBar>(R.id.moviesProgressBar)
         viewModel.isProgressBarVisible.observe(this, Observer { isVisible ->
-            progressBar.isVisible = isVisible
+            moviesProgressBar.isVisible = isVisible
         })
     }
 
@@ -79,14 +82,12 @@ class MoviesActivity : AppCompatActivity() {
     }
 
     private fun loadMovies() {
-        viewModel.movies.observe(this, Observer { movies ->
-            adapter.movies = movies
-            adapter.notifyDataSetChanged()
-        })
+        viewModel.loadPopularMovies()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.movies_activity_menu, menu)
+
         return true
     }
 
@@ -100,6 +101,7 @@ class MoviesActivity : AppCompatActivity() {
 
             R.id.action_delete_all_movies -> {
                 viewModel.deleteAllDataFromDatabase()
+
                 true
             }
 

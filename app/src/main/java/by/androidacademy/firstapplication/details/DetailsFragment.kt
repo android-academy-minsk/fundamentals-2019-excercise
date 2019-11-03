@@ -6,9 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,6 +14,14 @@ import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.dependency.Dependencies
 import coil.api.load
+import kotlinx.android.synthetic.main.fragment_details.details_btn_trailer
+import kotlinx.android.synthetic.main.fragment_details.details_iv_back
+import kotlinx.android.synthetic.main.fragment_details.details_iv_image
+import kotlinx.android.synthetic.main.fragment_details.details_tv_overview_text
+import kotlinx.android.synthetic.main.fragment_details.details_tv_released_date
+import kotlinx.android.synthetic.main.fragment_details.details_tv_title
+
+private const val ARGS_MOVIE = "ARGS_MOVIE"
 
 class DetailsFragment : Fragment() {
 
@@ -25,12 +30,15 @@ class DetailsFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        movie = arguments?.getParcelable(ARGS_MOVIE)!!
+
+        movie = arguments?.getParcelable(ARGS_MOVIE)
+            ?: throw IllegalArgumentException("Missing movie argument")
+
         viewModel = ViewModelProviders.of(
             this,
             DetailsViewModelFactory(
                 Dependencies.moviesRepository,
-                context!!,
+                requireContext(),
                 movie
             )
         ).get(DetailsViewModel::class.java)
@@ -48,24 +56,22 @@ class DetailsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         viewModel.openTrailerUrl.observe(
-            this,
+            viewLifecycleOwner,
             Observer { trailerUrl -> openMovieTrailer(trailerUrl) }
         )
         viewModel.error.observe(
-            this,
+            viewLifecycleOwner,
             Observer { errorMessage ->
                 Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
             }
         )
 
-        view.findViewById<ImageView>(R.id.details_iv_back).load(movie.backdropUrl)
-        view.findViewById<ImageView>(R.id.details_iv_image).load(movie.posterUrl)
-        view.findViewById<TextView>(R.id.details_tv_title).text = movie.title
-        view.findViewById<TextView>(R.id.details_tv_released_date).text = movie.releaseDate
-        view.findViewById<TextView>(R.id.details_tv_overview_text).text = movie.overview
-
-        val movieButton: Button = view.findViewById(R.id.details_btn_trailer)
-        movieButton.setOnClickListener { viewModel.onTrailerButtonClicked() }
+        details_iv_back.load(movie.backdropUrl)
+        details_iv_image.load(movie.posterUrl)
+        details_tv_title.text = movie.title
+        details_tv_released_date.text = movie.releaseDate
+        details_tv_overview_text.text = movie.overview
+        details_btn_trailer.setOnClickListener { viewModel.onTrailerButtonClicked() }
     }
 
     private fun openMovieTrailer(url: String) {
@@ -75,13 +81,12 @@ class DetailsFragment : Fragment() {
 
     companion object {
 
-        private const val ARGS_MOVIE = "ARGS_MOVIE"
-
         fun newInstance(movie: Movie): DetailsFragment {
             val fragment = DetailsFragment()
-            val bundle = Bundle()
-            bundle.putParcelable(ARGS_MOVIE, movie)
-            fragment.arguments = bundle
+            fragment.arguments = Bundle(1).apply {
+                putParcelable(ARGS_MOVIE, movie)
+            }
+
             return fragment
         }
     }

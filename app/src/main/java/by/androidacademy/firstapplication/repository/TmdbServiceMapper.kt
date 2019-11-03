@@ -5,6 +5,10 @@ import by.androidacademy.firstapplication.api.dto.MovieVideoDto
 import by.androidacademy.firstapplication.api.dto.PopularMoviesDto
 import by.androidacademy.firstapplication.data.Movie
 
+private const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342"
+private const val BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w780"
+private const val YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v="
+
 class TmdbServiceMapper {
 
     fun map(popularMoviesDto: PopularMoviesDto): List<Movie> {
@@ -27,11 +31,5 @@ class TmdbServiceMapper {
 
     fun mapTrailerUrl(movieVideoDto: MovieVideoDto): String {
         return YOUTUBE_BASE_URL + movieVideoDto.key
-    }
-
-    companion object {
-        private const val POSTER_BASE_URL = "https://image.tmdb.org/t/p/w342"
-        private const val BACKDROP_BASE_URL = "https://image.tmdb.org/t/p/w780"
-        private const val YOUTUBE_BASE_URL = "https://www.youtube.com/watch?v="
     }
 }

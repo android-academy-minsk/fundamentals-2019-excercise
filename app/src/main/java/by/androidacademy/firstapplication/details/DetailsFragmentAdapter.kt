@@ -14,7 +14,5 @@ class DetailsFragmentAdapter(
         return DetailsFragment.newInstance(arrayList[position])
     }
 
-    override fun getCount(): Int {
-        return arrayList.size
-    }
+    override fun getCount(): Int = arrayList.size
 }

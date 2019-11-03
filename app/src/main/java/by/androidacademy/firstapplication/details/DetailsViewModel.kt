@@ -1,7 +1,10 @@
 package by.androidacademy.firstapplication.details
 
 import android.content.Context
-import androidx.lifecycle.*
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.viewModelScope
 import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.repository.MoviesRepository
@@ -10,7 +13,6 @@ import by.androidacademy.firstapplication.utils.StringsProvider
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import java.lang.IllegalArgumentException
 
 class DetailsViewModel(
     private val moviesRepository: MoviesRepository,

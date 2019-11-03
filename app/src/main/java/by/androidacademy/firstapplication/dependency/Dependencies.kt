@@ -6,6 +6,8 @@ import by.androidacademy.firstapplication.api.TmdbServiceApi
 import by.androidacademy.firstapplication.db.AppDatabase
 import by.androidacademy.firstapplication.repository.MoviesRepository
 import by.androidacademy.firstapplication.repository.TmdbServiceMapper
+import by.androidacademy.firstapplication.repository.cache.MoviesCacheImpl
+import by.androidacademy.firstapplication.repository.cache.SharedPreferencesImpl
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 import retrofit2.create
@@ -24,8 +26,7 @@ object Dependencies {
         return MoviesRepository(
             createTmdbServiceApi(),
             createTmdbServiceMapper(),
-            db.movieDao(),
-            db.videoDao()
+            createMoviesCache()
         )
     }
 
@@ -35,6 +36,14 @@ object Dependencies {
 
     private fun createTmdbServiceMapper(): TmdbServiceMapper {
         return TmdbServiceMapper()
+    }
+
+    private fun createMoviesCache(): MoviesCacheImpl {
+        return MoviesCacheImpl(
+            db.movieDao(),
+            db.videoDao(),
+            SharedPreferencesImpl(App.instance)
+        )
     }
 
     private fun createRetrofit(): Retrofit {
