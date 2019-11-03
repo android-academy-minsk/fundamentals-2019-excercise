@@ -24,11 +24,13 @@ class MoviesRepository(
         return movies
     }
 
-    fun getCachedMovieTrailerUrl(movie: Movie): String? {
-        return cache.getMovieTrailerUrl(movie.id)
-    }
-
     suspend fun getMovieTrailerUrl(movie: Movie): String {
+        val cachedUrl = cache.getMovieTrailerUrl(movie.id)
+
+        if (cachedUrl != null) {
+            return cachedUrl
+        }
+
         val movieVideosDto = tmdbServiceApi.getMovieVideos(movie.id)
         val url = tmdbServiceMapper.mapTrailerUrl(movieVideosDto.results.first())
 

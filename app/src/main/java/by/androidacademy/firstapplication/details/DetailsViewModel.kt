@@ -29,16 +29,8 @@ class DetailsViewModel(
     fun onTrailerButtonClicked() {
         viewModelScope.launch {
             try {
-                val cachedUrl = withContext(Dispatchers.Default) {
-                    moviesRepository.getCachedMovieTrailerUrl(movie)
-                }
-
-                if (cachedUrl != null) {
-                    trailerUrlMutableLiveData.value = cachedUrl
-                } else {
-                    trailerUrlMutableLiveData.value = withContext(Dispatchers.IO) {
-                        moviesRepository.getMovieTrailerUrl(movie)
-                    }
+                trailerUrlMutableLiveData.value = withContext(Dispatchers.IO) {
+                    moviesRepository.getMovieTrailerUrl(movie)
                 }
             } catch (error: Throwable) {
                 errorMutableLiveData.value = stringsProvider.getString(
@@ -68,5 +60,4 @@ class DetailsViewModelFactory(
             throw IllegalArgumentException()
         }
     }
-
 }
