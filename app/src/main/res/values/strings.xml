@@ -21,5 +21,6 @@
     <string name="error_load_trailer">Can\'t load trailer: %1$s</string>
 
     <string name="menu_delete_all_movies">Delete all movies</string>
+    <string name="menu_open_background_service_activity">Open Background Service Activity</string>
 
 </resources>

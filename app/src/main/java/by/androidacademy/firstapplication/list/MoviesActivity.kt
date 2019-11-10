@@ -15,9 +15,9 @@ import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.data.Movie
 import by.androidacademy.firstapplication.dependency.Dependencies
 import by.androidacademy.firstapplication.details.DetailsGalleryFragment
+import by.androidacademy.firstapplication.services.BGServiceActivity
 import by.androidacademy.firstapplication.threads.CoroutineActivity
-import kotlinx.android.synthetic.main.activity_movies.moviesList
-import kotlinx.android.synthetic.main.activity_movies.moviesProgressBar
+import kotlinx.android.synthetic.main.activity_movies.*
 
 class MoviesActivity : AppCompatActivity() {
 
@@ -102,6 +102,11 @@ class MoviesActivity : AppCompatActivity() {
             R.id.action_delete_all_movies -> {
                 viewModel.deleteAllDataFromDatabase()
 
+                true
+            }
+
+            R.id.action_open_background_service_activity -> {
+                startActivity(Intent(this, BGServiceActivity::class.java))
                 true
             }
 

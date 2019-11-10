@@ -13,4 +13,10 @@
         android:icon="@drawable/ic_delete_forever_white_24dp"
         app:showAsAction="always"/>
 
+    <item
+        android:id="@+id/action_open_background_service_activity"
+        android:title="@string/menu_open_background_service_activity"
+        android:icon="@android:drawable/ic_menu_manage"
+        app:showAsAction="never"/>
+
 </menu>

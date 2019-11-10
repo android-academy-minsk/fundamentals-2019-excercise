@@ -23,6 +23,21 @@
         </activity>
 
         <activity android:name=".threads.CoroutineActivity" />
+        <activity android:name=".services.BGServiceActivity" />
+
+        <service
+            android:name=".services.ServiceProgress"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync"
+            />
+        <service
+            android:name=".services.IntentServiceProgress"
+            android:enabled="true"
+            android:exported="false"
+            android:foregroundServiceType="dataSync"
+            />
+
     </application>
 
 </manifest>
