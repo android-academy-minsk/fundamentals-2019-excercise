@@ -4,9 +4,9 @@ import android.app.Service
 import android.content.Intent
 import android.os.Handler
 import android.os.IBinder
-import java.util.*
+import by.androidacademy.firstapplication.dependency.AndroidServiceDelegate
 
-class ServiceProgress: Service() {
+class ServiceProgress : Service() {
 
     private lateinit var mHandler: Handler
     private lateinit var mRunnable: Runnable
@@ -20,7 +20,16 @@ class ServiceProgress: Service() {
 
         // Do a periodic task
         mHandler = Handler()
-        mRunnable = Runnable { showProgressNumber() }
+        var counter = 0
+        mRunnable = Runnable {
+            showProgressNumber(
+                if (counter < maxProgress) {
+                    counter++
+                } else {
+                    counter
+                }
+            )
+        }
         mHandler.postDelayed(mRunnable, 1000)
 
         return START_STICKY
@@ -32,9 +41,8 @@ class ServiceProgress: Service() {
     }
 
     // Custom method to do a task
-    private fun showProgressNumber() {
-        val
-        val number = rand.nextInt(100)
+    private fun showProgressNumber(progress: Int) {
+        AndroidServiceDelegate.setProgressToService(progress)//to do inject
         mHandler.postDelayed(mRunnable, 1000)
     }
 }

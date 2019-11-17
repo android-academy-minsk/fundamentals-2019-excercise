@@ -1,11 +1,10 @@
 package by.androidacademy.firstapplication.services
 
 import android.app.IntentService
-import android.app.Service
 import android.content.Intent
 import android.os.Handler
 import android.os.IBinder
-import java.util.*
+import by.androidacademy.firstapplication.dependency.AndroidServiceDelegate
 
 const val SERVICE_INTENT_PROGRESS = "IntentServiceProgress"
 
@@ -13,7 +12,7 @@ class IntentServiceProgress : IntentService(SERVICE_INTENT_PROGRESS) {
 
 
     override fun onHandleIntent(p0: Intent?) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+
     }
 
     private lateinit var mHandler: Handler
@@ -25,10 +24,17 @@ class IntentServiceProgress : IntentService(SERVICE_INTENT_PROGRESS) {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-
-        // Do a periodic task
         mHandler = Handler()
-        mRunnable = Runnable { showProgressNumber() }
+        var counter = 0
+        mRunnable = Runnable {
+            showProgressNumber(
+                if (counter < maxProgress) {
+                    counter++
+                } else {
+                    counter
+                }
+            )
+        }
         mHandler.postDelayed(mRunnable, 1000)
 
         return START_STICKY
@@ -39,10 +45,8 @@ class IntentServiceProgress : IntentService(SERVICE_INTENT_PROGRESS) {
         mHandler.removeCallbacks(mRunnable)
     }
 
-    // Custom method to do a task
-    private fun showProgressNumber() {
-        val
-        val number = rand.nextInt(100)
+    private fun showProgressNumber(progress: Int) {
+        AndroidServiceDelegate.setProgressToIntentService(progress)
         mHandler.postDelayed(mRunnable, 1000)
     }
 }
