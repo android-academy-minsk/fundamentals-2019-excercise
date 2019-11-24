@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData
 object AndroidServiceDelegate {
 
     private val progressUpdaterService: MutableLiveData<Int> = MutableLiveData()
+    private val progressUpdaterWorkerManager: MutableLiveData<Int> = MutableLiveData()
     private val progressUpdaterIntentService: MutableLiveData<Int> = MutableLiveData()
 
     fun setProgressToService(value: Int) {
@@ -17,12 +18,20 @@ object AndroidServiceDelegate {
         progressUpdaterIntentService.postValue(value)
     }
 
+    fun setProgressToWorkerManager(value: Int) {
+        progressUpdaterWorkerManager.postValue(value)
+    }
+
     fun subscribeToServiceProgress(): LiveData<Int> {
         return progressUpdaterService
     }
 
     fun subscribeToIntentServiceProgress(): LiveData<Int> {
         return progressUpdaterIntentService
+    }
+
+    fun subscribeToUpdaterWorkerManagerProgress(): LiveData<Int> {
+        return progressUpdaterWorkerManager
     }
 
 }
