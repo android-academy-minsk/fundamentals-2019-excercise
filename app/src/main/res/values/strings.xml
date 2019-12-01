@@ -23,4 +23,7 @@
     <string name="menu_delete_all_movies">Delete all movies</string>
     <string name="menu_open_background_service_activity">Open Background Service Activity</string>
 
+    <string name="notification_channel_name">androidacademy</string>
+    <string name="notification_text">Androidacademy</string>
+
 </resources>

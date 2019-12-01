@@ -1,0 +1,26 @@
+package by.androidacademy.firstapplication.androidservices.viewmodel
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
+import by.androidacademy.firstapplication.androidservices.HeavyWorkManager
+import by.androidacademy.firstapplication.androidservices.WorkerParamsRequest
+
+class ServiceViewModelFactory(
+    private val heavyWorkManager: HeavyWorkManager,
+    private val workerParamsRequest: WorkerParamsRequest
+) :
+    ViewModelProvider.Factory {
+
+    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+        return if (modelClass == ServiceViewModel::class.java) {
+            @Suppress("UNCHECKED_CAST")
+            ServiceViewModel(
+                heavyWorkManager,
+                workerParamsRequest
+            ) as T
+        } else {
+            throw IllegalArgumentException()
+        }
+    }
+
+}
