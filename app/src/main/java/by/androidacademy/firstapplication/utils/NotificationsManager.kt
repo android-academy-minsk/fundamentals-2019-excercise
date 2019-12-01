@@ -26,7 +26,7 @@ class NotificationsManager(
         resourceManager.getString(R.string.notification_channel_name)
     }
     private val iconNotification: Bitmap? by lazy {
-        resourceManager.getBitmap(android.R.drawable.ic_dialog_alert)
+        resourceManager.getBitmap(android.R.mipmap.sym_def_app_icon)
     }
     private val callNotificationBuilder: Builder by lazy {
         createNotification(context)
@@ -39,13 +39,13 @@ class NotificationsManager(
         createChannel()
     }
 
-    fun showNotification() {
-        with(
+    fun showNotification(): Notification {
+        return with(
             callNotificationBuilder
                 .setContentTitle(channelName)
                 .build()
         )
-        { showNotification(SERVICE_NOTIFICATION_ID, this) }
+        { showNotification(SERVICE_NOTIFICATION_ID, this).run { this@with } }
     }
 
     fun hideNotification() {
@@ -82,7 +82,7 @@ class NotificationsManager(
             .setAutoCancel(true)
             .setContentText(resourceManager.getString(R.string.notification_text))
             .setLargeIcon(iconNotification)
-            .setSmallIcon(android.R.drawable.ic_dialog_info)
+            .setSmallIcon(android.R.mipmap.sym_def_app_icon)
             .setColor(indicatorColor)
             .setGroup(DOWNLOAD_GROUP)
             .setSound(null)

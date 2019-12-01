@@ -12,9 +12,14 @@ class DownloadService : Service() {
     }
 
     override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        Dependencies.run {
-            notificationsManager.showNotification()
-            heavyWorkManager.startWork()
+        val params: Boolean? = intent.getBooleanExtra(SERVICE_INT_DATA, false)
+        params?.run {
+            if (this && startId == 1) {
+                Dependencies.run {
+                    startForeground(1, notificationsManager.showNotification())
+                    heavyWorkManager.startWork()
+                }
+            }
         }
         return START_NOT_STICKY
     }

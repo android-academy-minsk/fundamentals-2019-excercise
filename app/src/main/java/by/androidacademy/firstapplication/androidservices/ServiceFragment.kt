@@ -71,7 +71,7 @@ class ServiceFragment : Fragment() {
         }
 
         bnt_service.setOnClickListener {
-            activity?.run { serviceDelegate.startDownloadService(this) }
+            activity?.run { serviceDelegate.startDownloadService(this, true) }
         }
 
         bnt_worker.setOnClickListener {

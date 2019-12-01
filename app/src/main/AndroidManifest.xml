@@ -4,6 +4,7 @@
     package="by.androidacademy.firstapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name=".App"
@@ -29,14 +30,12 @@
             android:name=".androidservices.DownloadService"
             android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="dataSync"
-            />
+            android:foregroundServiceType="dataSync" />
         <service
             android:name=".androidservices.DownloadIntentService"
             android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="dataSync"
-            />
+            android:foregroundServiceType="dataSync" />
 
     </application>
 

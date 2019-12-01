@@ -6,16 +6,16 @@ import androidx.lifecycle.MutableLiveData
 
 class HeavyWorkManager {
 
-    private val mHandler: Handler = Handler()
-    private lateinit var mRunnable: Runnable
+    private var handler: Handler? = null
+    private lateinit var runnable: Runnable
     private val maxProgress: Int = 100
     private var counter = 0
 
     private val progressUpdaterService: MutableLiveData<Int> = MutableLiveData()
 
     fun startWork() {
-
-        mRunnable = Runnable {
+        handler = Handler()
+        runnable = Runnable {
             showProgressNumber(
                 if (counter <= maxProgress) {
                     counter++
@@ -24,7 +24,7 @@ class HeavyWorkManager {
                 }
             )
         }
-        mHandler.postDelayed(mRunnable, 1000)
+        handler?.postDelayed(runnable, 1000)
     }
 
     fun resetProgress() {
@@ -32,7 +32,7 @@ class HeavyWorkManager {
     }
 
     fun onDestroy() {
-        mHandler.removeCallbacks(mRunnable)
+        handler?.removeCallbacks(runnable)
     }
 
     fun getProgressUpdaterService(): LiveData<Int> = progressUpdaterService

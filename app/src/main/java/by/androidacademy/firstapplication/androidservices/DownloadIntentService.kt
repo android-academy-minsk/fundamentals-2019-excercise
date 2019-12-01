@@ -1,7 +1,6 @@
 package by.androidacademy.firstapplication.androidservices
 
 import android.app.IntentService
-import android.app.Service
 import android.content.Intent
 import by.androidacademy.firstapplication.dependency.Dependencies
 
@@ -26,10 +25,6 @@ class DownloadIntentService : IntentService(SERVICE_INTENT_PROGRESS) {
                 }
             }
         }
-    }
-
-    override fun onStartCommand(intent: Intent, flags: Int, startId: Int): Int {
-        return Service.START_NOT_STICKY
     }
 
 

@@ -18,8 +18,9 @@ class ServiceDelegate {
         activity.stopService(service)
     }
 
-    fun startDownloadService(activity: Activity) {
+    fun startDownloadService(activity: Activity, isEnable: Boolean) {
         val service = Intent(activity, DownloadService::class.java)
+        service.putExtra(SERVICE_INT_DATA, isEnable)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             activity.startForegroundService(service)
         } else {
