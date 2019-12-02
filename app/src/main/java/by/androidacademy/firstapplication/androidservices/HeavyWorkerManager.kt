@@ -29,6 +29,11 @@ class HeavyWorkerManager {
         showProgressNumber(counter)
     }
 
+    fun finishedWork() {
+        counter = 100
+        showProgressNumber(counter)
+    }
+
     fun onDestroy() {
         runnable?.run {
             handler.removeCallbacks(this)

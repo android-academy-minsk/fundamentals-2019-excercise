@@ -45,8 +45,9 @@ class DownloadJobIntentService : JobIntentService() {
         Handler(Looper.getMainLooper()).post {
             Dependencies.run {
                 heavyWorkManager.run {
-                    resetProgress()
+                    finishedWork()
                     onDestroy()
+
                 }
                 notificationsManager.hideNotification()
             }

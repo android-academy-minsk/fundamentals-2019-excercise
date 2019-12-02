@@ -16,7 +16,7 @@ class ServiceViewModel(
 
 
     private val progressStatus = Observer<Int> { progress ->
-        Log.d("progressStatus "," " + progress)
+        Log.d("progressStatus ", " $progress")
         when (progress) {
             MAX_PROGRESS -> resetState()
             else -> viewModelState.setProgress(progress)
