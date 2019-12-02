@@ -16,7 +16,7 @@ class DownloadService : Service() {
         params?.run {
             if (this && startId == 1) {
                 Dependencies.run {
-                    startForeground(1, notificationsManager.showNotification())
+                    startForeground(1, notificationsManager.notificationBuilder.build())
                     heavyWorkManager.startWork()
                 }
             }

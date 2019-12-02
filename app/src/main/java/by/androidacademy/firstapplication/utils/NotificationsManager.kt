@@ -4,6 +4,7 @@ import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
 import android.app.NotificationManager.IMPORTANCE_DEFAULT
+import android.content.Context
 import android.graphics.Bitmap
 import android.os.Build
 import androidx.core.app.NotificationCompat.*
@@ -21,6 +22,9 @@ class NotificationsManager(
     private val notificationManager: NotificationManager
 ) {
 
+    val notificationBuilder: Builder by lazy {
+        createNotification(context)
+    }
     private val channelId: String by lazy { resourceManager.packageName }
     private val channelName: String by lazy {
         resourceManager.getString(R.string.notification_channel_name)
@@ -28,9 +32,7 @@ class NotificationsManager(
     private val iconNotification: Bitmap? by lazy {
         resourceManager.getBitmap(android.R.mipmap.sym_def_app_icon)
     }
-    private val callNotificationBuilder: Builder by lazy {
-        createNotification(context)
-    }
+
     private val indicatorColor: Int by lazy {
         resourceManager.getColor(android.R.color.holo_green_light)
     }
@@ -41,19 +43,19 @@ class NotificationsManager(
 
     fun showNotification(): Notification {
         return with(
-            callNotificationBuilder
+            notificationBuilder
                 .setContentTitle(channelName)
                 .build()
         )
-        { showNotification(SERVICE_NOTIFICATION_ID, this).run { this@with } }
+        { showNotification(this).run { this@with } }
     }
 
     fun hideNotification() {
         notificationManager.cancel(SERVICE_NOTIFICATION_ID)
     }
 
-    fun showNotification(id: Int, notification: Notification) {
-        notificationManager.notify(id, notification)
+    private fun showNotification(notification: Notification) {
+        notificationManager.notify(SERVICE_NOTIFICATION_ID, notification)
     }
 
     private fun createChannel() {
@@ -75,7 +77,7 @@ class NotificationsManager(
     }
 
 
-    private fun createNotification(context: App): Builder {
+    private fun createNotification(context: Context): Builder {
         return Builder(context, channelId)
             .setCategory(CATEGORY_EVENT)
             .setPriority(PRIORITY_MAX)

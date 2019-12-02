@@ -4,7 +4,7 @@ import android.app.NotificationManager
 import android.content.Context.NOTIFICATION_SERVICE
 import androidx.room.Room
 import by.androidacademy.firstapplication.App
-import by.androidacademy.firstapplication.androidservices.HeavyWorkManager
+import by.androidacademy.firstapplication.androidservices.HeavyWorkerManager
 import by.androidacademy.firstapplication.androidservices.ServiceDelegate
 import by.androidacademy.firstapplication.androidservices.WorkerParamsRequest
 import by.androidacademy.firstapplication.api.TmdbServiceApi
@@ -59,7 +59,7 @@ object Dependencies {
 
     private fun createServiceDelegate(): ServiceDelegate = ServiceDelegate()
 
-    private fun createHeavyWorkManager(): HeavyWorkManager = HeavyWorkManager()
+    private fun createHeavyWorkManager(): HeavyWorkerManager = HeavyWorkerManager()
 
     private fun createMoviesRepository(): MoviesRepository {
         return MoviesRepository(

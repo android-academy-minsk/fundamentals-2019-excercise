@@ -4,10 +4,10 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.work.WorkInfo
 import by.androidacademy.firstapplication.R
 import by.androidacademy.firstapplication.androidservices.viewmodel.ServiceViewModel
 import by.androidacademy.firstapplication.androidservices.viewmodel.ServiceViewModelFactory
@@ -27,15 +27,6 @@ class ServiceFragment : Fragment() {
     private val serviceDelegate: ServiceDelegate = Dependencies.serviceDelegate
     private var viewModel: ServiceViewModel? = null
 
-    private val progressDownloadWorker: Observer<WorkInfo> = Observer {
-        it?.let {
-            if (it.state == WorkInfo.State.SUCCEEDED) {
-                setProgress("100")
-            } else {
-                setProgress("0")
-            }
-        }
-    }
 
     private fun initViewModel() {
         viewModel = ViewModelProviders.of(
@@ -62,19 +53,43 @@ class ServiceFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViewModel()
-        viewModel?.getProgress()?.observe(this, Observer {
-            setProgress(it.toString())
-        })
+
+        viewModel?.run {
+            downloadProgress().observe(this@ServiceFragment, Observer {
+                setProgress(it.toString())
+            })
+            isButtonsEnable().observe(this@ServiceFragment, Observer {
+                setSateForBtn(it)
+            })
+            isEnableDownloadService().observe(this@ServiceFragment, Observer { isEnable ->
+                if (!isEnable) {
+                    stopDownloadService()
+                }
+            })
+            isEnableDownloadIntentService().observe(this@ServiceFragment, Observer { isEnable ->
+                if (!isEnable) {
+                    stopDownloadIntentService()
+                }
+            })
+            isEnableDownloadJobIntentService().observe(this@ServiceFragment, Observer { isEnable ->
+                if (!isEnable) {
+                    stopDownloadJobIntentService()
+                }
+            })
+        }
 
         btn_intent_service.setOnClickListener {
+            setSateForBtn(false)
             activity?.run { serviceDelegate.startDownloadIntentService(this, true) }
         }
 
         bnt_service.setOnClickListener {
+            setSateForBtn(false)
             activity?.run { serviceDelegate.startDownloadService(this, true) }
         }
 
         bnt_worker.setOnClickListener {
+            setSateForBtn(false)
             viewModel?.run {
                 getWorker().run {
                     enqueue()
@@ -83,19 +98,31 @@ class ServiceFragment : Fragment() {
             }
         }
 
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        viewModel?.cancelWork()
         activity?.run { serviceDelegate.stopAllService(this) }
+    }
+
+    private fun stopDownloadService() {
+        activity?.run { serviceDelegate.stopDownloadService(this) }
+    }
+
+    private fun stopDownloadIntentService() {
+        activity?.run { serviceDelegate.stopDownloadIntentService(this) }
+    }
+
+    private fun stopDownloadJobIntentService() {
+        activity?.run { serviceDelegate.stopDownloadJobIntentService(this) }
     }
 
     private fun subscribeToUpdateWorker(params: WorkerParamsRequest) {
         activity?.run {
             params.workManagerInfo()
-                .observe(this@ServiceFragment, progressDownloadWorker)
+                .observe(this@ServiceFragment, Observer { workInfo ->
+                    Toast.makeText(this, workInfo.state.name, Toast.LENGTH_SHORT).show()
+                })
         }
     }
 
@@ -103,5 +130,12 @@ class ServiceFragment : Fragment() {
         activity?.runOnUiThread {
             tv_result_progress_intent.text = progress
         }
+    }
+
+    private fun setSateForBtn(isEnable: Boolean) {
+        btn_intent_service.isEnabled = isEnable
+        bnt_service.isEnabled = isEnable
+        bnt_worker.isEnabled = isEnable
+
     }
 }

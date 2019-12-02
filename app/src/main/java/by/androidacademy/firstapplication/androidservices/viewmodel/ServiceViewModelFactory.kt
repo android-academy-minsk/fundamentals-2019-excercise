@@ -2,11 +2,11 @@ package by.androidacademy.firstapplication.androidservices.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import by.androidacademy.firstapplication.androidservices.HeavyWorkManager
+import by.androidacademy.firstapplication.androidservices.HeavyWorkerManager
 import by.androidacademy.firstapplication.androidservices.WorkerParamsRequest
 
 class ServiceViewModelFactory(
-    private val heavyWorkManager: HeavyWorkManager,
+    private val heavyWorkManager: HeavyWorkerManager,
     private val workerParamsRequest: WorkerParamsRequest
 ) :
     ViewModelProvider.Factory {

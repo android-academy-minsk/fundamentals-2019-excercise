@@ -6,32 +6,31 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import by.androidacademy.firstapplication.App
-import by.androidacademy.firstapplication.dependency.Dependencies
-import java.util.concurrent.TimeUnit
+import java.util.*
 
 class WorkerParamsRequest {
 
-    private val constraints = Constraints.Builder()
-        .build()
-
-    private val uploadWorkRequest = OneTimeWorkRequestBuilder<WorkerManagerDelegate>()
-        .setConstraints(constraints)
-        .setInitialDelay(5, TimeUnit.SECONDS)
-        .build()
-
+    private var idWork: UUID = UUID.randomUUID()
+    private val constraints = Constraints.Builder().build()
     private val worker: WorkManager = WorkManager.getInstance(App.instance)
 
     fun enqueue() {
-        worker
-            .enqueue(Dependencies.workerParamsRequest.uploadWorkRequest)
+        worker.enqueue(uploadWorkRequest())
     }
 
     fun workManagerInfo(): LiveData<WorkInfo> {
-        return worker.getWorkInfoByIdLiveData(uploadWorkRequest.id)
+        return worker.getWorkInfoByIdLiveData(idWork)
     }
 
     fun cancelWork() {
-        worker.cancelWorkById(uploadWorkRequest.id)
+        worker.cancelWorkById(idWork)
     }
+
+    private fun uploadWorkRequest() = OneTimeWorkRequestBuilder<WorkerManagerDelegate>()
+        .setConstraints(constraints)
+        .build().run {
+            idWork = id
+            this
+        }
 
 }
