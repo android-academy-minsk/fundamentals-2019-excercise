@@ -1,5 +1,6 @@
 package by.androidacademy.firstapplication.androidservices.viewmodel
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
@@ -15,6 +16,7 @@ class ServiceViewModel(
 
 
     private val progressStatus = Observer<Int> { progress ->
+        Log.d("progressStatus "," " + progress)
         when (progress) {
             MAX_PROGRESS -> resetState()
             else -> viewModelState.setProgress(progress)

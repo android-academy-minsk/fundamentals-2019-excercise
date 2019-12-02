@@ -18,6 +18,7 @@ class DownloadIntentService : IntentService(SERVICE_INTENT_PROGRESS) {
         Handler(Looper.getMainLooper()).post {
             params?.run { startWork(this) }
         }
+        Thread.sleep(DELAY_VALUE)//note, this is a random number, for an example hard work
     }
 
     private fun startWork(isEnable: Boolean) {
