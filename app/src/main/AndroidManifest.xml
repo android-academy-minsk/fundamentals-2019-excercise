@@ -4,6 +4,7 @@
     package="by.androidacademy.firstapplication">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
 
     <application
         android:name=".App"
@@ -24,6 +25,7 @@
 
         <activity android:name=".threads.CoroutineActivity" />
         <activity android:name=".services.BGServiceActivity" />
+        <activity android:name=".magicadditions.PosterActivity" />
 
         <service
             android:name=".services.ServiceProgress"
@@ -37,6 +39,13 @@
             android:exported="false"
             android:foregroundServiceType="dataSync"
             />
+
+        <service android:name=".magicadditions.DownloadService"/>
+        <receiver android:name=".magicadditions.CompleteReceiver" android:exported="true">
+            <intent-filter>
+                <action android:name="by.androidacademy.firstapplication.magicadditions.DOWNLOAD_COMPLETE"/>
+            </intent-filter>
+        </receiver>
 
     </application>
 

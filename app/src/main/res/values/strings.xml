@@ -4,6 +4,7 @@
     <string name="released_title">Released:</string>
     <string name="button_movie_trailer">Movie Trailer</string>
     <string name="overview_title">Overview:</string>
+    <string name="generic_error">Something went wrong</string>
 
     <string name="content_description_movie_backdrop">Movie Backdrop</string>
     <string name="content_description_movie_poster">Movie Poster</string>
@@ -23,4 +24,13 @@
     <string name="menu_delete_all_movies">Delete all movies</string>
     <string name="menu_open_background_service_activity">Open Background Service Activity</string>
 
+    <string name="dialog_title">Permission needed</string>
+    <string name="dialog_message">To be able downloading requested file the app needs to access your files</string>
+    <string name="dialog_ok">OK</string>
+    <string name="notification_title">Downloading… %1$d%%</string>
+    <string name="notification_message">In progress</string>
+    <string name="channel_name">Default channel</string>
+    <string name="channel_description">It is a channel for default notifications</string>
+    <string name="notification_error_title">Error</string>
+    <string name="notification_error_message">Image can not be downloaded</string>
 </resources>
