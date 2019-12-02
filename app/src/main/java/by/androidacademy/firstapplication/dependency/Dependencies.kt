@@ -7,6 +7,7 @@ import by.androidacademy.firstapplication.App
 import by.androidacademy.firstapplication.androidservices.HeavyWorkerManager
 import by.androidacademy.firstapplication.androidservices.ServiceDelegate
 import by.androidacademy.firstapplication.androidservices.WorkerParamsRequest
+import by.androidacademy.firstapplication.androidservices.viewmodel.ServiceViewModelState
 import by.androidacademy.firstapplication.api.TmdbServiceApi
 import by.androidacademy.firstapplication.db.AppDatabase
 import by.androidacademy.firstapplication.repository.MoviesRepository
@@ -44,6 +45,8 @@ object Dependencies {
     val workerParamsRequest by lazy {
         createWorkerParamsRequest()
     }
+
+    fun serviceViewModelState() = ServiceViewModelState()
 
     private fun createWorkerParamsRequest(): WorkerParamsRequest {
         return WorkerParamsRequest()

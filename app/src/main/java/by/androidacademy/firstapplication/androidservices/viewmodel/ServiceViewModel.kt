@@ -1,7 +1,6 @@
 package by.androidacademy.firstapplication.androidservices.viewmodel
 
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import by.androidacademy.firstapplication.androidservices.HeavyWorkerManager
@@ -10,19 +9,15 @@ import by.androidacademy.firstapplication.androidservices.WorkerParamsRequest
 
 class ServiceViewModel(
     private val heavyWorkManager: HeavyWorkerManager,
+    private val viewModelState: ServiceViewModelState,
     private val workerParamsRequest: WorkerParamsRequest
 ) : ViewModel() {
 
-    private val progressData: MutableLiveData<Int> = MutableLiveData()
-    private val isEnableButton: MutableLiveData<Boolean> = MutableLiveData()
-    private val isEnableDownloadService: MutableLiveData<Boolean> = MutableLiveData()
-    private val isEnableDownloadIntentService: MutableLiveData<Boolean> = MutableLiveData()
-    private val isEnableDownloadJobIntentService: MutableLiveData<Boolean> = MutableLiveData()
 
     private val progressStatus = Observer<Int> { progress ->
         when (progress) {
             MAX_PROGRESS -> resetState()
-            else -> progressData.postValue(progress)
+            else -> viewModelState.setProgress(progress)
         }
     }
 
@@ -32,15 +27,17 @@ class ServiceViewModel(
 
     fun getWorker() = workerParamsRequest
 
-    fun downloadProgress(): LiveData<Int> = progressData
+    fun downloadProgress(): LiveData<Int> = viewModelState.downloadProgress()
 
-    fun isButtonsEnable(): LiveData<Boolean> = isEnableButton
+    fun isButtonsEnable(): LiveData<Boolean> = viewModelState.isButtonsEnable()
 
-    fun isEnableDownloadService(): LiveData<Boolean> = isEnableDownloadService
+    fun isEnableDownloadService(): LiveData<Boolean> = viewModelState.isEnableDownloadService()
 
-    fun isEnableDownloadIntentService(): LiveData<Boolean> = isEnableDownloadIntentService
+    fun isEnableDownloadIntentService(): LiveData<Boolean> =
+        viewModelState.isEnableDownloadIntentService()
 
-    fun isEnableDownloadJobIntentService(): LiveData<Boolean> = isEnableDownloadJobIntentService
+    fun isEnableDownloadJobIntentService(): LiveData<Boolean> =
+        viewModelState.isEnableDownloadJobIntentService()
 
     override fun onCleared() {
         super.onCleared()
@@ -55,10 +52,12 @@ class ServiceViewModel(
     private fun cancelWork() = workerParamsRequest.cancelWork()
 
     private fun resetState() {
-        isEnableButton.postValue(true)
-        isEnableDownloadService.postValue(false)
-        isEnableDownloadIntentService.postValue(false)
-        isEnableDownloadJobIntentService.postValue(false)
+        viewModelState.run {
+            isEnableButton(true)
+            isEnableService(false)
+            isEnableIntentService(false)
+            isEnableJobIntentService(false)
+        }
         cancelWork()
         heavyWorkManager.run {
             resetProgress()

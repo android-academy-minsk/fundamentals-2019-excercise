@@ -7,6 +7,7 @@ import by.androidacademy.firstapplication.androidservices.WorkerParamsRequest
 
 class ServiceViewModelFactory(
     private val heavyWorkManager: HeavyWorkerManager,
+    private val serviceViewModelState: ServiceViewModelState,
     private val workerParamsRequest: WorkerParamsRequest
 ) :
     ViewModelProvider.Factory {
@@ -16,6 +17,7 @@ class ServiceViewModelFactory(
             @Suppress("UNCHECKED_CAST")
             ServiceViewModel(
                 heavyWorkManager,
+                serviceViewModelState,
                 workerParamsRequest
             ) as T
         } else {

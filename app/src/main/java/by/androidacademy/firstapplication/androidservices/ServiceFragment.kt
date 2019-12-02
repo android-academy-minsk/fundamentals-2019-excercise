@@ -33,6 +33,7 @@ class ServiceFragment : Fragment() {
             this,
             ServiceViewModelFactory(
                 Dependencies.heavyWorkManager,
+                Dependencies.serviceViewModelState(),
                 Dependencies.workerParamsRequest
             )
         ).get(ServiceViewModel::class.java)
