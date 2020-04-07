@@ -1,3 +1,3 @@
 # fundamentals-2019-exercise
 
-Please, do Exercise #8 "Networking" - [link](https://docs.google.com/presentation/d/101T5Wp8oNcFwmacSAnuDCxZEJicmAuUX_VCTOXx_00k/edit?usp=sharing)
+Please, do Exercise #9 "Persistency" - [link](https://docs.google.com/presentation/d/13RY-l91cEAUb8R0BGr2q_9zJ1WXw3Ajzzf_yZyjTEA8/edit?usp=sharing)
